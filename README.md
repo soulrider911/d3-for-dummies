@@ -152,3 +152,16 @@ Finally we add labels:
      .attr("text-anchor", "middle")
 ```
 
+(add more description and homework)
+
+
+## Lesson 2 :: Margin Convention
+
+That's it, now we can go further and get more familiar with D3 margin convention. In order to achieve this we'll have a more detailed look at Michael Bostock example (http://bl.ocks.org/mbostock/3019563).
+
+You may ask why should we learn margin convention, when there are many plots, which are steal unknown. Just skip this lesson, if your plans about D3 are not expected to be longterm. I would highly recommend to add this convention to your arsenal, because it's a sign of good style of plotting with D3.
+
+![image](https://raw.github.com/mac-r/d3-for-dummies/master/lesson_2/lesson_2.png)
+
+
+
