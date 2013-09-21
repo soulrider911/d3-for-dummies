@@ -61,14 +61,94 @@ This will be our dataset:
               {name: "Pat",   age: 10} ]
 ```
 
-Just random people within information about their names and age.
-
-The first thing I would do is trying to understand what should be illustrated on the plot. My idea is a bar chart, where columns represent people and heights are attached to their age.
-
 Plots in D3 are built layer by layer. First of all, we need to specify parameters of the canvas:
+
+#### Canvas
 
 ```coffeescript
   margin  = { top: 60, right: 60, bottom: 60, left: 60 }
   width   = 640
   height  = 480
 ```
+
+Then we create the canvas with the following code:
+
+```coffeescript
+  svg = d3.select("body") # specifying, where we append our plot
+          .append("svg")  # svg object, which is a canvas
+          .attr("style" , "background-color: yellow") # making canvas visible
+          .attr("width" , width)
+          .attr("height", height)
+```
+
+#### Scales
+
+Scales are fundamental, they translate data into pixels. We build plots in D3 by mapping aesthetics to data (according to Grammar of Graphics). If you want to show something on the plot - don't forget about scales.
+
+We build scales this way:
+
+```coffeescript
+  xScale  = d3.scale.ordinal() # used for descrete/categorical data (ex: histogram buckets)
+              .domain(dataset.map((d)-> d.name)) # input values from the dataset
+              .rangeRoundBands([margin.left, width - margin.right], 0.15) # output pixels
+  yScale  = d3.scale.linear() # used for continuous data (ex: temperature, age, valuations)
+              .domain([0, d3.max(dataset, (d) -> d.age)]) # input values from the dataset
+              .range([height - margin.bottom, margin.top]) # output pixels
+```
+
+#### Axis
+
+X and Y Axis are described like this:
+
+```coffeescript
+  xAxis = d3.svg.axis().scale(xScale).orient("bottom")
+  yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(3)
+```
+
+Then they are added to the plot:
+
+```coffeescript
+  svg.append("g")
+     .attr("class", "x axis")
+     .attr("transform", "translate(0,#{height-margin.bottom})")
+     .attr("style", "font-family: sans-serif; font-size: 25px;")
+     .call(xAxis)
+
+  svg.append("g")
+     .attr("class", "y axis")
+     .attr("transform", "translate(#{margin.left},6)")
+     .attr("style", "font-family: sans-serif; font-size: 25px;")
+     .call(yAxis)
+```
+
+#### Bars
+
+Now we are ready to build bars. To do this we use a chain of functions `data -> enter -> rect`. This allows to use magic function in each further `attr` (attribute): `(d) -> d.attribute`. The function allows to iterate through each entered object we want to create on the plot.
+
+```coffeescript
+  rect = svg.selectAll("rect")
+     .data(dataset).enter().append("rect")
+     .attr("fill", (d) -> "rgb(20,#{d.age*3}, 10)")
+     .attr("x", (d) -> xScale(d.name))
+     .attr("y", (d) -> yScale(d.age))
+     .attr("height", (d) -> height - yScale(d.age) - margin.bottom)
+     .attr("width", xScale.rangeBand())
+```
+
+#### Labels
+
+Finally we add labels:
+
+```coffeescript
+  svg.selectAll("label")
+     .data(dataset).enter()
+     .append("text")
+     .attr("class", "label")
+     .text((d) -> d.age)
+     .attr("style", "font-family: sans-serif; font-size: 17px; fill:white;")
+     .attr("x", (d) -> xScale(d.name) + xScale.rangeBand()/2) # place text in the middle
+     .attr("y", (d) -> yScale(d.age))
+     .attr("dy", 30)
+     .attr("text-anchor", "middle")
+```
+

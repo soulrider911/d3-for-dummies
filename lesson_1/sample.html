@@ -12,32 +12,21 @@
   width   = 640
   height  = 480
 
-  xScale  = d3.scale.ordinal()
-              .domain(dataset.map((d)-> d.name))
-              .rangeRoundBands([margin.left, width - margin.right], 0.15)
-
-  xAxis   = d3.svg.axis().scale(xScale).orient("bottom")
-
-  yScale  = d3.scale.linear()
-              .domain([0, d3.max(dataset, (d) -> d.age)])
-              .range([height - margin.bottom, margin.top])
-
-  yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(3)
-
   svg = d3.select("body")
           .append("svg")
           .attr("style" , "background-color: yellow")
           .attr("width" , width)
           .attr("height", height)
 
-  rect = svg.selectAll("rect")
-     .data(dataset).enter().append("rect")
-     .attr("fill", (d) -> "rgb(20,#{d.age*3}, 10)")
-     .attr("x", (d) -> xScale(d.name))
-     .attr("y", (d) -> yScale(d.age))
-     .attr("height", (d) -> height - yScale(d.age) - margin.bottom)
-     .attr("width", xScale.rangeBand())
+  xScale  = d3.scale.ordinal()
+              .domain(dataset.map((d)-> d.name))
+              .rangeRoundBands([margin.left, width - margin.right], 0.15)
+  yScale  = d3.scale.linear()
+              .domain([0, d3.max(dataset, (d) -> d.age)])
+              .range([height - margin.bottom, margin.top])
 
+  xAxis   = d3.svg.axis().scale(xScale).orient("bottom")
+  yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(3)
 
   svg.append("g")
      .attr("class", "x axis")
@@ -51,16 +40,23 @@
      .attr("style", "font-family: sans-serif; font-size: 25px;")
      .call(yAxis)
 
+  rect = svg.selectAll("rect")
+     .data(dataset).enter().append("rect")
+     .attr("fill", (d) -> "rgb(20,#{d.age*3}, 10)")
+     .attr("x", (d) -> xScale(d.name))
+     .attr("y", (d) -> yScale(d.age))
+     .attr("height", (d) -> height - yScale(d.age) - margin.bottom)
+     .attr("width", xScale.rangeBand())
+
   svg.selectAll("label")
      .data(dataset).enter()
      .append("text")
-     .attr("class", "labels")
+     .attr("class", "label")
      .text((d) -> d.age)
-     .attr("style", "font-family: sans-serif; font-size: 17px;fill:white;")
+     .attr("style", "font-family: sans-serif; font-size: 17px; fill:white;")
      .attr("x", (d) -> xScale(d.name) + xScale.rangeBand()/2)
-     .attr("y", (d) -> yScale(d.age) + 20)
-     .attr("dx", 0)
-     .attr("dy", "10px")
+     .attr("y", (d) -> yScale(d.age))
+     .attr("dy", 30)
      .attr("text-anchor", "middle")
 
 </script><body></body></html>
