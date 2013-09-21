@@ -11,9 +11,9 @@ For each lesson open playground.html file, follow instructions and try to implem
 
 ## Intro
 
-You've probably met a lot of tutorials for D3. There was a big problem in ones I had a chance to observe. They were explaining how to build some sort of a plot with D3, but were not giving a sistematic understanding of what was actually going on.
+You've probably met a lot of tutorials for D3. There was a big problem in ones I had a chance to observe. They were explaining how to build some sort of a plot with D3, but were not giving a systematic understanding of what was actually going on.
 
-In 2005 Leland Wilkinson introduced the World an abstraction, making reasoning and communicating graphics easier. He described this concept in his book "The Grammar of Graphics" (according to the its name).
+In 2005 Leland Wilkinson introduced the World an abstraction, making reasoning and communicating graphics easier. He described this concept in his book "The Grammar of Graphics" (according to its name).
 
 In my opinion, following this abstraction allows to understand D3 much easier. We should definetly observe Grammar of Graphics in more details. We will follow it's modification called layered grammar of graphics, which is different from the original (presented by Wilkinson), but not that much.
 
