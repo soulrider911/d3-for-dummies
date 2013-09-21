@@ -23,7 +23,7 @@ Consider the tech IPOs dataset, with information about companies valuations sinc
 
 The data allows to answer, which companies in Internet and telecom industries had highest valuations in history. It's easy to understand when we look at the following scatterplot.
 
-(place for intro_scatter_plot.png)
+![image](https://raw.github.com/mac-r/d3-for-dummies/master/intro_scatter_plot.png)
 
 What is going underneath the surface? How did Michael Bostock build this plot with D3?
 
@@ -39,4 +39,36 @@ We understand that a company valuation is defined by the amount of money market 
 
 This conversion process is called scaling and performed by scales.
 
-(to be continued)
+(this part should be continued)
+
+
+## Lesson 1 :: Static Bar Chart
+
+By the end of this lesson you'll know how to build a plot like this:
+
+![image](https://raw.github.com/mac-r/d3-for-dummies/master/lesson_1/lesson_1.png)
+
+D3 is a JavaScript package, but we'll built our plots using CoffeeScript.
+
+This will be our dataset:
+
+```coffeescript
+  dataset = [ {name: "Tom",   age: 60},
+              {name: "Susan", age: 50},
+              {name: "Fiona", age: 40},
+              {name: "Mike",  age: 30},
+              {name: "Merry", age: 20},
+              {name: "Pat",   age: 10} ]
+```
+
+Just random people within information about their names and age.
+
+The first thing I would do is trying to understand what should be illustrated on the plot. My idea is a bar chart, where columns represent people and heights are attached to their age.
+
+Plots in D3 are built layer by layer. First of all, we need to specify parameters of the canvas:
+
+```coffeescript
+  margin  = { top: 60, right: 60, bottom: 60, left: 60 }
+  width   = 640
+  height  = 480
+```
