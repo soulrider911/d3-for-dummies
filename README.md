@@ -157,11 +157,43 @@ Finally we add labels:
 
 ## Lesson 2 :: Margin Convention
 
-That's it, now we can go further and get more familiar with D3 margin convention. In order to achieve this we'll have a more detailed look at Michael Bostock example (http://bl.ocks.org/mbostock/3019563).
+Now we can go further and get more familiar with D3 margin convention. In order to achieve this we'll have a more detailed look at Michael Bostock example (http://bl.ocks.org/mbostock/3019563). Most of the lesson content is taken from there.
 
 You may ask why should we learn margin convention, when there are many plots, which are steal unknown. Just skip this lesson, if your plans about D3 are not expected to be longterm. I would highly recommend to add this convention to your arsenal, because it's a sign of good style of plotting with D3.
 
 ![image](https://raw.github.com/mac-r/d3-for-dummies/master/lesson_2/lesson_2.png)
 
+At first we define the margin object with properties for the four sides.
 
+```coffeescript
+  margin = {top: 20, right: 10, bottom: 20, left: 10}
+```
 
+Then we define width and height as the inner dimensions of the chart area.
+
+```coffeescript
+  width  = 960  - margin.left - margin.right
+  height = 500  - margin.top  - margin.bottom
+```
+
+Lastly, svg is defined as a G element that translates the origin to the top-left corner of the chart area.
+
+```coffeescript
+  svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(#{margin.left}, #{margin.top})")
+```
+
+With this convention, all subsequent code can ignore margins. For example, to create x and y scales, we simply say:
+
+```coffeescript
+  x = d3.scale.linear()
+        .range([0, width])
+
+  y = d3.scale.linear()
+        .range([height, 0])
+```
+
+If there is a need to add axes to the chart, they will be positioned correctly by default in the "left" and "top" orientations. For "right" or "bottom" orientation, translate the axis G element by the width or height, respectively.
