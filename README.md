@@ -15,7 +15,7 @@ You've probably met a lot of tutorials for D3. There was a big problem in ones I
 
 In 2005 Leland Wilkinson introduced the World an abstraction, making reasoning and communicating graphics easier. He described this concept in his book "The Grammar of Graphics" (according to its name).
 
-In my opinion, following this abstraction allows to understand D3 much easier. We should definetly observe Grammar of Graphics in more details. We will follow it's modification called layered grammar of graphics, which is different from the original (presented by Wilkinson), but not that much.
+In my opinion, following this abstraction allows to understand D3 much easier. We should definetly observe Grammar of Graphics in more details. We will follow its modification called layered grammar of graphics, which is different from the original (presented by Wilkinson), but not that much.
 
 ### Grammar of Graphics
 
@@ -29,7 +29,7 @@ What is going underneath the surface? How did Michael Bostock build this plot wi
 
 #### Mapping Aesthetics to Data
 
-Mapping aesthetics to data is a fundamental part of working with D3. Let's think what is a precise way of illustrating data above? The scatterplot represents each company as a point, positioned according to its valuation and year of going public. As well as horizontal and vertical position, each point also has a size and a colour. We could build things in a different way, by using other geometric forms mapped to data.
+Mapping aesthetics to data is a fundamental part of working with D3. Let's think: what is a precise way of illustrating data above? The scatterplot represents each company as a point, positioned according to its valuation and year of going public. As well as horizontal and vertical position, each point also has a size and a colour. We could build things in a different way, by using other geometric forms mapped to data.
 
 In fact "aesthetics" is a definition I took from from ggplot, but there is nothing better, which could describe this.
 
@@ -123,7 +123,7 @@ Then they are added to the plot:
 
 #### Bars
 
-Now we are ready to build bars. To do this we use a chain of functions `data -> enter -> rect`. This allows to use magic function in each further `attr` (attribute): `(d) -> d.attribute`. The function allows to iterate through each entered object we want to create on the plot.
+Now we are ready to build bars. To do so we use a chain of functions `data -> enter -> append(geometric object)`. This allows to use magic function in each further `attr` (attribute): `(d) -> d.attribute`. The function allows to iterate through each entered object we want to create on the plot.
 
 ```coffeescript
   rect = svg.selectAll("rect")
