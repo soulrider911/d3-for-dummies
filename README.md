@@ -180,8 +180,8 @@ Lastly, svg is defined as a G element that translates the origin to the top-left
 
 ```coffeescript
   svg = d3.select("body").append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+          .attr("width",  width  + margin.left + margin.right)
+          .attr("height", height + margin.top  + margin.bottom)
         .append("g")
           .attr("transform", "translate(#{margin.left}, #{margin.top})")
 ```
